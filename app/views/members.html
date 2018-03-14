@@ -1,0 +1,228 @@
+<div>
+    <h2 class="page-title">All Members</h2> <br>
+
+    <div class="info-table-header-block">
+        <input type="text" placeholder="Search Members Here" ng-model="membersFilter" id="member_search">
+        <button type="button" class="btn btn-primary add-new-button" data-toggle="modal" data-target="#addnewModal">
+            Add New
+        </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addnewModal" tabindex="-1" role="dialog" aria-labelledby="addnewModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addnewModalTitle">Insert Member Information</h4>
+                </div>
+    
+                <!-- User Create Modal Start -->
+    
+                <div class="modal-body">
+                    <form id="input_form" ng-submit="createNewMember()">
+                        <div class="form-group">
+                            <label for="first_name">First Name
+                                <span class="required-field">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Enter First Name" ng-model="newMember.first_name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name
+                                <span class="required-field">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Enter Last Name" ng-model="newMember.last_name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email
+                                <span class="required-field">*</span>
+                            </label>
+                            <input type="email" class="form-control" placeholder="Enter Email" ng-model="newMember.email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="d_o_b">Date of Birth (mm/dd/yy)
+                                <span class="required-field">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Enter Date of birth" id="d_o_b" ng-model="newMember.d_o_b" required onkeypress="return false;"
+                            />
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="designation">Designation
+                                <span class="required-field">*</span>
+                            </label>
+                            <input type="text" class="form-control" placeholder="Enter Designation" ng-model="newMember.designation" required />
+                        </div>
+    
+                        <div class="modal-footer-extended">
+                            <button class="btn btn-primary">Create</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+    
+                <!-- User Create Modal End -->
+            </div>
+        </div>
+    </div>
+
+
+    <table id="member_table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    <a href="" ng-click="doSort('first_name')">First Name</a>
+                    <i class="fa fa-sort"></i>
+                </th>
+                <th>
+                    <a href="" ng-click="doSort('last_name')">Last Name</a>
+                    <i class="fa fa-sort"></i>
+                </th>
+                <th>
+                    <a href="" ng-click="doSort('email')">Email</a>
+                    <i class="fa fa-sort"></i>
+                </th>
+                <th>
+                    <a href="" ng-click="doSort('d_o_b')">Age</a>
+                    <i class="fa fa-sort"></i>
+                </th>
+                <th>
+                    <a href="" ng-click="doSort('designation')">Designation</a>
+                    <i class="fa fa-sort"></i>
+                    </i>
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="member in members | filter:membersFilter | orderBy:sortBy" class="repeat-animation">
+                <td>{{$index+1}}</td>
+                <td>{{member.first_name}}</td>
+                <td>{{member.last_name}}</td>
+                <td>{{member.email}}</td>
+                <td>{{member.d_o_b | ageFilter}}</td>
+                <td>{{member.designation}}</td>
+                <td>
+                    <button class="btn btn-sm btn-default" ng-click="showMember(member)">View</button>
+                    <button class="btn btn-sm btn-primary" ng-click="editMember(member)">Edit</button>
+                    <button class="btn btn-sm btn-danger" ng-click="deleteMember(member)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <!-- User Information Modal Start -->
+
+    <div id="show_user_info">
+        <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="showModalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="showModal">Member Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="show_first_name">First Name</label>
+                            <input type="text" class="form-control" ng-value="singleMember.first_name" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="show_last_name">Last Name</label>
+                            <input type="text" class="form-control" ng-value="singleMember.last_name" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="show_email">Email</label>
+                            <input type="email" class="form-control"  ng-value="singleMember.email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="show_d_o_b">Date of Birth</label>
+                            <input type="text" class="form-control"  ng-value="singleMember.d_o_b" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="show_designation">Designation</label>
+                            <input type="text" class="form-control"  ng-model="singleMember.designation" disabled>
+                        </div>
+
+                        <div class="modal-footer-extended">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Information Modal End -->
+
+
+
+        <!-- User Edit Modal Start -->
+        
+        <div id="show_user_info">
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="editModal">Edit Member Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form ng-submit="updateMember()">
+                                <div class="form-group">
+                                    <label for="edit_first_name">First Name
+                                        <span class="required-field">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="edit_first_name" ng-model="singleMember.first_name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_last_name">Last Name
+                                        <span class="required-field">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="edit_last_name" ng-model="singleMember.last_name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_email">Email
+                                        <span class="required-field">*</span>
+                                    </label>
+                                    <input type="email" class="form-control" id="edit_email" ng-model="singleMember.email" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_d_o_b">Date of Birth
+                                        <span class="required-field">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="edit_d_o_b" ng-model="singleMember.d_o_b" required onkeypress="return false;" />
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="edit_designation">Designation
+                                        <span class="required-field">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="edit_designation" ng-model="singleMember.designation" required />
+                                </div>
+        
+                                <div class="modal-footer-extended">
+                                    <button class="btn btn-success">Update</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Edit Modal End -->
+
+<script>
+    $("#d_o_b").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '1975:2000',
+    });
+    $("#edit_d_o_b").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '1975:2000',
+    })
+</script>

@@ -1,0 +1,33 @@
+ [{
+         "id": 1,
+         "first_name": "Sudipto",
+         "last_name": "Chowdhury",
+         "email": "sudipto.chowdhury@selise.ch",
+         "d_o_b": "10-22-1994",
+         "designation": "Software Engineer"
+     },
+     {
+         "id": 2,
+         "first_name": "Parvej",
+         "last_name": "Khan",
+         "email": "parvej.khan@gmail.com",
+         "d_o_b": "06-12-1991",
+         "designation": "Software Developer"
+     },
+     {
+         "id": 3,
+         "first_name": "Razon",
+         "last_name": "Hossain",
+         "email": "razon.hossain@gmail.com",
+         "d_o_b": "03-22-1990",
+         "designation": "Android Developer"
+     },
+     {
+         "id": 4,
+         "first_name": "Ashraf",
+         "last_name": "Uddin",
+         "email": "ashraf.uddin@yahoo.com",
+         "d_o_b": "06-06-1993",
+         "designation": "Server Administrator"
+     }
+ ]
